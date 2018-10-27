@@ -1,0 +1,21 @@
+progname = clock.exe
+OBJECTS = main.o
+CXX= /opt/xmingw/bin/i386-mingw32msvc-g++
+CXXFLAGS = -g -export-dynamic
+INCLUDES = -I/opt/xmingw/bin/include \
+	-I../winlibs/audiere/include \
+	-I../winlibs/mingw32sdl/include/SDL
+LIBS= -L/opt/xmingw/bin/lib -L../lightfire3d/src -L../winlibs/mingw32sdl/lib \
+	-llf3d -lmingw32 -lSDLmain -lSDL -mwindows -lopengl32 -lglu32 \
+	../winlibs/audiere/lib/audiere.lib
+
+
+$(progname) : $(OBJECTS)
+	$(CXX) -o $(progname) $(CCFLAGS) $(OBJECTS) $(LIBS)
+
+%.o: %.cpp %.h
+	$(CXX) -c $< $(INCLUDES)
+
+.PHONY : clean
+clean :
+	rm -f $(progname) $(OBJECTS)
