@@ -1,0 +1,16 @@
+progname = liblf3d.a
+OBJECTS = Main.o LogFile.o FontLoader.o ImageLoader.o TerrainLoader.o ModelLoader.o GraphicDevice.o AudioDevice.o CameraDevice.o InputDevice.o SceneGraph.o SceneNode.o SceneNodeModel.o SceneNodeOctree.o Helper.o Types.o NetworkServer.o NetworkClient.o
+AR= /opt/xmingw/bin/i386-mingw32msvc-ar
+CXX= /opt/xmingw/bin/i386-mingw32msvc-g++
+INCLUDES = -I/opt/xmingw/bin/include -I../../winlibs/audiere/include \
+	-I../../winlibs/mingw32sdl/include/SDL
+	
+$(progname) : $(OBJECTS)
+	$(AR) rcs $(progname) $(OBJECTS)
+
+%.o: %.cpp %.h
+	$(CXX) -c $< $(INCLUDES)
+
+.PHONY : clean
+clean :
+	rm -f $(progname) $(OBJECTS)
